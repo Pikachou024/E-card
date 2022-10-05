@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>E-cards</title>
+</head>
+<body>
+
+<main>
+    <div id="canvas">
+        <canvas id="paint-canvas" width="640" height="400" ><img id="image-canvas"></canvas>
+    </div>
+    <div class="liste outils">
+        <button id="clearCanvas" value ="Clear">Clear</button>
+        <button id="gomme" value="Gomme">Gomme</button>
+        <input type="color" class="picker" name="picker" id="picker">
+    </div>
+    <div class="liste " id="couleur">
+        <div class="button-color black border" data-color='rgb(0,0,0)'></div>
+        <div class="button-color red" data-color="rgb(255,0,0)"></div>
+        <div class="button-color orange"  data-color="rgb(255,128,0)"></div>
+        <div class="button-color yellow" data-color="rgb(255,255,0)"></div>
+        <div class="button-color green"data-color="rgb(0,255,0)"></div>
+        <div class="button-color light-blue" data-color="rgb(173,216,230)"></div>
+        <div class="button-color dark-blue" data-color="rgb(0,0,139)"></div>
+        <div class="button-color purple" data-color="purple"></div>
+    </div>
+    <div class="liste" id="pencil">
+        <button class=" taille pencil border" value=1> Fin </button>
+        <button class=" taille pencil" value=5> Moyen </button>
+        <button class=" taille pencil" value=10> Epais </button>
+    </div>
+
+    <div class="liste">
+        <button class="buttonForm">Envoyer une E-carte</button>
+    </div>
+
+
+</main>
+
+
+<div class="formulaire hide">
+
+    <form action="php/formulaire.php" method="post" id="submit-form">
+        <div>
+            <label for="email">Votre email</label><br>
+            <input type="email" id="email" name="email"  value="adresse@gmail.com"> </br>
+        </div>
+
+        <div>
+            <label for="emailDestinataire">Email du destinataire</label><br>
+            <input type="email" id="emailDestinataire" name="emailDestinataire" value="adresse2@gmail.com"></br>
+        </div>
+
+        <div >
+            <label for="message">Votre message</label><br>
+            <textarea id="message" name="message"  > </textarea>
+        </div>
+
+        <div>
+            <input type="checkbox" id="checkbox" name="checkbox">
+            <label for="checkbox">Recevoir une copie du mail</label>
+        </div>
+
+            <input type="hidden" id="img" name="img" ></br>
+
+        <button type="submit" id="submit-button">Envoyer</button><br>
+        <button id="buttonClose" type="reset">Close</button>
+    </form>
+</div>
+
+<div id="loader" class="loader hide"></div>
+
+<script src="javascript/main.js" type="module"></script>
+</body>
+</html>
