@@ -1,15 +1,15 @@
 export class Paint {
     constructor(lineWidth,color) {
 
-        this.canvas = document.getElementById('paint-canvas');
-        // this.imageCanvas = document.getElementById('image-canvas');
+        this.canvas = document.getElementById('paint-canvas');;
         this.imageParametre = new Image();
         this.ctx = this.canvas.getContext('2d');
         this.isMouseDown=false
         this.lineWidth  = lineWidth;
         this.lineCap = "round";
         this.color = color;
-
+        this.ctx.fillStyle = 'white'
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
         this.init();
     }
 
@@ -23,8 +23,6 @@ export class Paint {
             this.imageParametre.src = localStorage.getItem('dessin');
             this.ctx.drawImage(this.imageParametre,0,0,640,400);
         });
-
-
 
     }
 

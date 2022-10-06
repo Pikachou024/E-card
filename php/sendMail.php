@@ -9,11 +9,9 @@ function sendMail(string $emailExpediteur,string $emailDestinataire,string $mess
     $transport = Transport::fromDsn(MAILER_DSN);
     $mailer = new Mailer($transport);
     $email = (new Email())
-//        ->from('expediteur@example.test')
-//        ->to('destinataire@here.test')
+
         ->from($emailExpediteur)
         ->to($emailDestinataire)
-//        ->cc(null)
         ->priority(Email::PRIORITY_HIGHEST)
         ->subject('Dessin E-card')
         ->text($message)
@@ -21,7 +19,6 @@ function sendMail(string $emailExpediteur,string $emailDestinataire,string $mess
     if($copy){
         $email->addTo($emailExpediteur);
     }
-
     $mailer->send($email);
 }
 
