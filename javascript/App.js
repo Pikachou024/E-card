@@ -7,20 +7,24 @@ export class App{
         this.lineWidth = 1;
         this.colorPen = ("rgb(0,0,0");
         this.arrayPencil=["1"];
+        this.paintCanvas = new Paint(this.lineWidth,this.colorPen);
+
+        this.initSelector();
+        this.init();
+    }
+
+    initSelector(){
         this.buttonClear = document.querySelector('#clearCanvas')
         this.pencil = document.querySelectorAll(".pencil");
         this.couleur = document.querySelectorAll('.button-color');
-        this.gomme = document.getElementById('gomme');
-        this.picker = document.getElementById('picker');
+        this.gomme = document.querySelector('#gomme');
+        this.picker = document.querySelector('#picker');
         this.buttonForm = document.querySelector('.buttonForm');
         this.formulaire = document.querySelector('.formulaire');
         this.main = document.querySelector('#main');
         this.buttonClose = document.querySelector('#buttonClose');
         this.loader = document.querySelector('#loader')
         this.submitButton = document.querySelector('#submit-form');
-
-        this.paintCanvas = new Paint(this.lineWidth,this.colorPen);
-        this.init();
     }
 
     init(){
@@ -48,10 +52,14 @@ export class App{
         this.buttonClose.addEventListener('click',this.closeForm.bind(this));
         this.submitButton.addEventListener('submit', this.submitForm.bind(this)) ;
 
+        this.loader.addEventListener('click',this.closeLoader.bind(this))
+
         if(storage){
             this.paintCanvas.loadImage(storage);
         }
     }
+
+
 
     changeColor(event){
         const target = event.currentTarget
@@ -88,8 +96,8 @@ export class App{
     selectGomme(){
         this.paintCanvas.setLineWidth(30);
         this.paintCanvas.setColor('white');
-        this.addBorder('border',null,this.gomme);
 
+        this.addBorder('border',null,this.gomme);
     }
 
     clearCanvas(){
@@ -126,6 +134,10 @@ export class App{
         this.main.classList.remove('opacity');
     }
 
+    closeLoader(){
+        this.loader.classList.add('hide');
+    }
+
     async submitForm(event){
         event.preventDefault();
         const link = event.currentTarget;
@@ -133,9 +145,17 @@ export class App{
         const response = await fetch(link.action,{ method: 'POST', body: new FormData(link) })
         const data = await response.json();
         this.loader.classList.add('hide');
-        alert(data['confirmation']);
-        this.closeForm()
-        link.reset();
+
+        if(data['error'] == null){
+            alert(data['confirmation']);
+            this.closeForm()
+            link.reset();
+        }
+        else{
+            alert(data['error']);
+        }
+
+
     }
 
 }
